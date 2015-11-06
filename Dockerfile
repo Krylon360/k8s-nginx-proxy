@@ -19,7 +19,7 @@ FROM nginx
 
 MAINTAINER Mike Metral <metral@gmail.com>
 
-RUN rm /etc/nginx/conf.d/*.conf
+#RUN rm /etc/nginx/conf.d/*.conf
 
 WORKDIR /usr/src
 

@@ -40,14 +40,15 @@ fi
 
 show_val() { echo "${!1}"; }
 
-SERVICE_NAME=`echo $SERVICE_NAME | awk '{print toupper($0)}'`
-SERVICE_HOST="$SERVICE_NAME"_SERVICE_HOST
-SERVICE_PORT="$SERVICE_NAME"_SERVICE_PORT
-TARGET_SERVICE="$(show_val $SERVICE_HOST)":"$(show_val $SERVICE_PORT)"
+SERVICE_NAME_CAP=`echo $SERVICE_NAME | awk '{print toupper($0)}'`
+SERVICE_PORT="$SERVICE_NAME_CAP"_SERVICE_PORT
+TARGET_SERVICE="$SERVICE_NAME":"$(show_val $SERVICE_PORT)"
 echo "Target service: $TARGET_SERVICE"
 
 # Tell nginx the address and port of the service to proxy to
 sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{K8S_DNS_HOST}}/${K8S_DNS_HOST}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{NGINX_PORT}}/${NGINX_PORT}/g;" /etc/nginx/conf.d/proxy.conf
 
 echo "Starting nginx..."
 nginx -g 'daemon off;'
