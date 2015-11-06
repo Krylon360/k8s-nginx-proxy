@@ -50,5 +50,10 @@ sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
 sed -i "s/{{K8S_DNS_HOST}}/${K8S_DNS_HOST}/g;" /etc/nginx/conf.d/proxy.conf
 sed -i "s/{{NGINX_PORT}}/${NGINX_PORT}/g;" /etc/nginx/conf.d/proxy.conf
 
+cat /etc/nginx-env/config
+echo "---------------------"
+cat /etc/nginx/conf.d/proxy.conf
+
+
 echo "Starting nginx..."
 nginx -g 'daemon off;'
