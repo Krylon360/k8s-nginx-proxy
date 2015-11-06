@@ -12,12 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 
+echo "here0"
 # Env says we're using SSL 
 if [ -n "${ENABLE_SSL+1}" ] && [ "${ENABLE_SSL,,}" = "true" ]; then
+  echo "here0a"
   echo "Enabling SSL..."
   cp /usr/src/proxy_ssl.conf /etc/nginx/conf.d/proxy.conf
 else
   # No SSL
+  echo "here0b"
   echo "Enabling *Without* SSL..."
   cp /usr/src/proxy_nossl.conf /etc/nginx/conf.d/proxy.conf
 fi
