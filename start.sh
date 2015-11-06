@@ -11,6 +11,7 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
+source /etc/nginx-env/config
 
 echo "here0"
 # Env says we're using SSL 
@@ -56,9 +57,10 @@ echo "here4"
 # Tell nginx the address and port of the service to proxy to
 sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
 sed -i "s/{{K8S_DNS_HOST}}/${K8S_DNS_HOST}/g;" /etc/nginx/conf.d/proxy.conf
-sed -i "s/{{NGINX_PORT}}/${K8S_NGINX_PORT}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{NGINX_PORT}}/${NGINX_PORT}/g;" /etc/nginx/conf.d/proxy.conf
 
 echo "here5"
+
 
 cat /etc/nginx-env/config
 echo "---------------------"
