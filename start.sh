@@ -13,6 +13,11 @@
 # See the License for the specific language governing permissions and
 
 source /etc/nginx-env/config
+# /etc/nginx-env/config holds:
+#   K8S_SERVICE_NAME
+#   K8S_SERVICE_FQDN
+#   K8S_DNS_HOST
+#   NGINX_PORT
 
 # Env says we're using SSL 
 if [ -n "${ENABLE_SSL+1}" ] && [ "${ENABLE_SSL,,}" = "true" ]; then
@@ -43,14 +48,17 @@ fi
 show_val() { echo "${!1}"; }
 
 K8S_SERVICE_NAME_CAP=`echo $K8S_SERVICE_NAME | awk '{print toupper($0)}'`
-SERVICE_PORT="$K8S_SERVICE_NAME_CAP"_SERVICE_PORT
-TARGET_SERVICE="$K8S_SERVICE_NAME":"$(show_val $SERVICE_PORT)"
-echo "Target service: $TARGET_SERVICE"
+K8S_SERVICE_PORT="$K8S_SERVICE_NAME_CAP"_SERVICE_PORT
+K8S_SERVICE_PORT="$(show_val $K8S_SERVICE_PORT)"
+#TARGET_SERVICE="$K8S_SERVICE_NAME":"$(show_val $SERVICE_PORT)"
+#echo "Target service: $TARGET_SERVICE"
 
 # Tell nginx the address and port of the service to proxy to
-sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
-sed -i "s/{{K8S_DNS_HOST}}/${K8S_DNS_HOST}/g;" /etc/nginx/conf.d/proxy.conf
+#sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
 sed -i "s/{{NGINX_PORT}}/${NGINX_PORT}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{K8S_DNS_HOST}}/${K8S_DNS_HOST}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{K8S_SERVICE_FQDN}}/${K8S_SERVICE_FQDN}/g;" /etc/nginx/conf.d/proxy.conf
+sed -i "s/{{K8S_SERVICE_PORT}}/${K8S_SERVICE_PORT}/g;" /etc/nginx/conf.d/proxy.conf
 
 cat /etc/nginx-env/config
 echo "---------------------"
