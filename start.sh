@@ -12,12 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 
-source /etc/nginx-env/config
-# /etc/nginx-env/config holds:
+# Remove existing configs
+rm /etc/nginx/conf.d/*.conf
+
+# /etc/nginx-env/config (stored in K8s Secret 'nginx-env') holds:
 #   K8S_SERVICE_NAME
 #   K8S_SERVICE_FQDN
 #   K8S_DNS_HOST
 #   NGINX_PORT
+source /etc/nginx-env/config
 
 # Env says we're using SSL 
 if [ -n "${ENABLE_SSL+1}" ] && [ "${ENABLE_SSL,,}" = "true" ]; then
