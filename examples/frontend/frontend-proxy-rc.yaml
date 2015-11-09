@@ -1,0 +1,30 @@
+ apiVersion: v1
+ kind: ReplicationController
+ metadata:
+   name: frontend-proxy
+   labels:
+     name: frontend-proxy
+ spec:
+   replicas: 1
+   selector:
+     name: frontend-proxy
+   template:
+     metadata:
+       labels:
+         name: frontend-proxy
+     spec:
+       containers:
+         - name: frontend-proxy
+           image: quay.io/metral/k8s-nginx-proxy:latest
+           imagePullPolicy: Always
+           ports:
+             - name: proxy-http
+               containerPort: 80
+           volumeMounts:
+             - name: nginx-env
+               mountPath: /etc/nginx-env
+               readOnly: true
+       volumes:
+         - name: nginx-env
+           secret:
+             secretName: nginx-env
