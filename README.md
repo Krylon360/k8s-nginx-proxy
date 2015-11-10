@@ -228,8 +228,8 @@ configured for external access.
   features that are *not* inherent to K8s Services
 
 ## Misc
-* As of alternative, in K8s v1.1, there is a new native, beta resource in K8s known as [Ingress](http://kubernetes.io/v1.1/docs/user-guide/ingress.html)
-which is a collection of network rules that allow inbound connections to reach
+* As an alternative, in K8s v1.1, there is a new, native, beta resource in K8s known as [Ingress](http://kubernetes.io/v1.1/docs/user-guide/ingress.html).
+  * Ingress is a collection of network rules that allow inbound connections to reach
 cluster Services as well as enable "externally-reachable urls, load balance
 traffic, terminate SSL, offer name based virtual hosting etc." 
 
