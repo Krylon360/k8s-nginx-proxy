@@ -227,6 +227,12 @@ configured for external access.
   * Allows us to further enable features such as SSL-termination & caching -
   features that are *not* inherent to K8s Services
 
+## Misc
+* As of alternative, in K8s v1.1, there is a new native, beta resource in K8s known as [Ingress](http://kubernetes.io/v1.1/docs/user-guide/ingress.html)
+which is a collection of network rules that allow inbound connections to reach
+cluster Services as well as enable "externally-reachable urls, load balance
+traffic, terminate SSL, offer name based virtual hosting etc." 
+
 ## Potential TODO List
 * Currently, only support for an HTTP Nginx reverse-proxy exists; thus HTTPS/TLS support is needed.
 * The `config-to-secret.sh` script and in turn, the [quay.io/metral/k8s-nginx-proxy](https://quay.io/metral/k8s-nginx-proxy) image, is
