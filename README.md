@@ -16,10 +16,12 @@ K8s Services are really only meant to be internally consumable within a Kubernet
 k8s-nginx-proxy is modeled after and is a mix of both [GoogleCloudPlatform/nginx-ssl-proxy](https://github.com/GoogleCloudPlatform/nginx-ssl-proxy)
 and [New Relic's Monitoring Agent](https://github.com/kubernetes/kubernetes/tree/master/examples/newrelic), but with the DNS twist rather than relying on static configuration - this is a key differentiator as Nginx only issues a DNS lookup for the FQDN it is proxying to when it first loads, so if the Service gets deleted or updated, Nginx would not be able to properly resolve the record unless it is tied to a DNS. This is what we aim to solve with k8s-nginx-proxy.
 
-## Ok, so what does this architecture look like?
+## Ok, so what does this architecture look like & how can I use it?
+Docker Image: [quay.io/metral/k8s-nginx-proxy](https://quay.io/metral/k8s-nginx-proxy)  
+
 This image is an enhancement of a borrowed image from [GoogleCloudPlatform/nginx-ssl-proxy](https://github.com/GoogleCloudPlatform/nginx-ssl-proxy). As its original, it is optimized for use in a Kubernetes cluster, with the added benefit of consuming SkyDNS entries for Services.
 
-**Note: The [quay.io/metral/k8s-nginx-proxy](https://quay.io/metral/k8s-nginx-proxy) Docker image is only usable in a Kubernetes cluster enabled with SkyDNS.**
+**Note: The k8s-nginx-proxy Docker image is only usable in a Kubernetes cluster enabled with SkyDNS.**
 ![](img/architecture.png)
 
 ## Alright, how do I use k8s-nginx-proxy?
